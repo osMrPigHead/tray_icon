@@ -2,10 +2,9 @@ import ctypes
 import importlib
 import os
 import sys
-from pathlib import Path
 
 import psutil
-from PyQt5.QtWidgets import QApplication, QMenu, QMessageBox, QSystemTrayIcon
+from PyQt5.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
 from application import *
 from utils import *
