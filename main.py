@@ -79,6 +79,7 @@ class BasicApplication(MultiApplication):
 class TrayIcon(QSystemTrayIcon):
     def __init__(self, app: QApplication):
         super().__init__(ICON(), app)
+        self.setToolTip("托盘快捷操作\nBy osMrPigHead\n2024.08.09")
         menu = QMenu()
         self.setContextMenu(menu)
         self.main_application = MainApplication(app)
