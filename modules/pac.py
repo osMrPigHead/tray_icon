@@ -10,6 +10,8 @@ import winreg
 from typing import Iterable, Optional
 from wsgiref.simple_server import make_server
 
+from PyQt5.QtWidgets import QMenu
+
 from application import *
 from config import pac as config
 from modules.pac_config import *
@@ -45,7 +47,6 @@ with config.PAC_DISABLED.open("rb") as fr_d, config.PAC_ENABLED.open("rb") as fr
 selected_proxy = config.DEFAULT_PROXY
 pac: bytes
 pac_len: str
-set_proxy_state(config.DEFAULT_ENABLED)
 
 atexit.register(lambda: flush_windows_pac(False))
 
@@ -100,7 +101,15 @@ Select = radio_application_object(
     lambda _, value: select_proxy(value), get_proxy_options()
 )
 
+
+class ProxyApplicationBase(MultiApplication):
+    def build(self, menu: QMenu):
+        super().build(menu)
+        if config.DEFAULT_ENABLED:
+            Enable.enable()
+
+
 ProxyApplication = application_object(
-    MultiApplication, "代理",
+    ProxyApplicationBase, "代理",
     [Enable, Reload, Flush, Select]
 )
